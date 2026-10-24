@@ -19,6 +19,28 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
+      - name: Diagnose SDK and bindings headers
+        shell: bash
+        run: |
+          echo "=== SDK mapping headers ==="
+          find geode-sdk-clone/loader/include/Geode \
+            -path '*/mapping/*' -type f 2>/dev/null | head -80
+
+          echo "=== Required header locations ==="
+          find . -type f \( \
+            -name 'array.hpp' -o \
+            -name 'ccTypes.hpp' \
+          \) 2>/dev/null | head -80
+
+          echo "=== Bindings repository revision ==="
+          if [ -d bindings-repo/.git ]; then
+            git -C bindings-repo remote -v
+            git -C bindings-repo rev-parse HEAD
+            git -C bindings-repo status --short
+          else
+            echo "bindings-repo is not present before the build step."
+          fi
+
       - name: Build iOS Geode mod
         id: build
         uses: geode-sdk/build-geode-mod@main
