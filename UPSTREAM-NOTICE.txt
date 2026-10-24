@@ -1,0 +1,1 @@
+This project is an independently authored porting prototype based on the public behavior and interface of Predictive Input Buffer. Before redistributing copied or adapted code from the upstream repository, review and comply with the upstream repository's license terms. This archive does not claim to be an official release or a complete port.

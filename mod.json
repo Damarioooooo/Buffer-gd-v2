@@ -1,0 +1,21 @@
+{
+  "geode": "5.11.2",
+  "gd": {
+    "ios": "2.208"
+  },
+  "version": "0.1.0",
+  "id": "jrtv.predictive-input-buffer-ios",
+  "name": "Predictive Input Buffer (iOS Port)",
+  "developer": "Community iOS port",
+  "description": "iOS-targeted porting prototype for Predictive Input Buffer. Not yet feature-equivalent to the original trajectory simulator.",
+  "settings": {
+    "buffer-ticks": {
+      "type": "int",
+      "name": "Prototype buffer delay (ticks)",
+      "description": "Prototype-only fixed delay. This is not the original predictive trajectory behavior.",
+      "default": 2,
+      "min": 0,
+      "max": 16
+    }
+  }
+}
