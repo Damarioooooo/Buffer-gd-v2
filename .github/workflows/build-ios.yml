@@ -1,61 +1,38 @@
 
-name: Build Geode mod (iOS)
+name: Build iOS
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main
+      - "**"
 
 permissions:
   contents: read
 
 jobs:
   build-ios:
-    name: Build for iOS
+    name: iOS
     runs-on: macos-latest
 
     steps:
       - name: Check out source
         uses: actions/checkout@v4
 
-      - name: Diagnose SDK and bindings headers
-        shell: bash
-        run: |
-          echo "=== SDK mapping headers ==="
-          find geode-sdk-clone/loader/include/Geode \
-            -path '*/mapping/*' -type f 2>/dev/null | head -80
-
-          echo "=== Required header locations ==="
-          find . -type f \( \
-            -name 'array.hpp' -o \
-            -name 'ccTypes.hpp' \
-          \) 2>/dev/null | head -80
-
-          echo "=== Bindings repository revision ==="
-          if [ -d bindings-repo/.git ]; then
-            git -C bindings-repo remote -v
-            git -C bindings-repo rev-parse HEAD
-            git -C bindings-repo status --short
-          else
-            echo "bindings-repo is not present before the build step."
-          fi
-
-      - name: Build iOS Geode mod
+      - name: Build for iOS
         id: build
         uses: geode-sdk/build-geode-mod@main
         with:
-          sdk: given
           target: iOS
-          path: .
+          sdk: v5.11.2
           bindings: vwtfafa/bindings
-          bindings-ref: fix/2.2081-depends
-          use-cpm-cache: false
+          bindings-ref: c0c808828d456e54164b60a589b0edd6172b327a
+          configure-args: -DSKIP_BUILDING_CODEGEN=OFF
 
-      - name: Upload build artifact
+      - name: Upload .geode artifact
         uses: actions/upload-artifact@v4
         with:
-          name: PredictiveInputBuffer-iOS-build
-          path: ${{ steps.build.outputs.build-output }}/
+          name: Input-Buffer-iOS
+          path: ${{ steps.build.outputs.build-output }}
           if-no-files-found: error
           retention-days: 14
