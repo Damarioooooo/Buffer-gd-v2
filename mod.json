@@ -1,13 +1,14 @@
+
 {
   "geode": "5.11.2",
   "gd": {
-    "ios": "2.208"
+    "ios": "2.2081"
   },
   "version": "0.1.0",
   "id": "jrtv.predictive-input-buffer-ios",
   "name": "Predictive Input Buffer (iOS Port)",
   "developer": "Community iOS port",
-  "description": "iOS-targeted porting prototype for Predictive Input Buffer. Not yet feature-equivalent to the original trajectory simulator.",
+  "description": "iOS-targeted porting prototype for Predictive Input Buffer.",
   "settings": {
     "buffer-ticks": {
       "type": "int",
